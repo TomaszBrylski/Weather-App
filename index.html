@@ -36,5 +36,20 @@
         </div>
     </div>
     
+    <script>
+
+        const apiKey = "8e46f01443dcff88b2e68d5e19142605";
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=rheinberg";
+
+        async function checkWeather() {
+            const response = await fetch(apiUrl + `&appid=${apiKey}`);
+            var data = await response.json();
+
+            console.log(data);
+        }
+    
+    checkWeather();
+    </script>
+
 </body>
 </html>
