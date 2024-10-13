@@ -39,10 +39,13 @@
     <script>
 
         const apiKey = "8e46f01443dcff88b2e68d5e19142605";
-        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=rheinberg";
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 
-        async function checkWeather() {
-            const response = await fetch(apiUrl + `&appid=${apiKey}`);
+        const searchBox = document.querySelector(".search input");
+        const searchBnt = document.querySelector(".search button");
+
+        async function checkWeather(city) {
+            const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
             var data = await response.json();
 
             console.log(data);
@@ -52,6 +55,11 @@
             document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
             document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
         }
+
+
+    searchBnt.addEventListener("click", () => {
+        checkWeather(searchBox.value);
+    })  
     
     checkWeather();
     </script>
