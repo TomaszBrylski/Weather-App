@@ -17,10 +17,8 @@ async function checkWeather(city) {
     var data = await response.json();
 
     document.querySelector(".city").innerHTML = data.name;
-    document.querySelector(".temp").innerHTML =
-      Math.round(data.main.temp) + "°c";
-    document.querySelector(".humidity").innerHTML =
-      data.main.humidity + "%";
+    document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
+    document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
     document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
 
     if (data.weather[0].main == "Clouds") {
@@ -50,6 +48,10 @@ searchBox.addEventListener("keyup", (event) => {
   if (event.key === "Enter") {
     checkWeather(searchBox.value);
   }
+});
+
+searchBox.addEventListener("input", (event) => {
+  searchBox.value = searchBox.value.replace(/[^a-zA-Z]/g, "");
 });
 
 checkWeather();
