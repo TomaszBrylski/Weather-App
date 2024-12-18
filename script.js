@@ -6,7 +6,6 @@ const searchBox = document.querySelector(".search input");
 const searchBnt = document.querySelector(".search button");
 const weatherIcon = document.querySelector(".weather-icon");
 
-
 async function checkWeather(city) {
   const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
 
@@ -17,7 +16,8 @@ async function checkWeather(city) {
     var data = await response.json();
 
     document.querySelector(".city").innerHTML = data.name;
-    document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
+    document.querySelector(".temp").innerHTML =
+      Math.round(data.main.temp) + "°C";
     document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
     document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
 
@@ -52,8 +52,7 @@ async function checkWeatherByLocation(lat, lon) {
     document.querySelector(".city").innerHTML = data.name;
     document.querySelector(".temp").innerHTML =
       Math.round(data.main.temp) + "°c";
-    document.querySelector(".humidity").innerHTML =
-      data.main.humidity + "%";
+    document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
     document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
 
     if (data.weather[0].main == "Clouds") {
@@ -73,14 +72,32 @@ async function checkWeatherByLocation(lat, lon) {
   }
 }
 
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        checkWeatherByLocation(lat, lon);
+      },
+      (error) => {
+        console.error("Geolocation error:", error);
+
+        checkWeather("Rheinberg");
+      }
+    );
+  } else {
+    console.error("Geolocation is not supported by this browser.");
+
+    checkWeather("Rheinberg");
+  }
+}
 
 searchBox.focus();
-
 
 searchBnt.addEventListener("click", () => {
   checkWeather(searchBox.value);
 });
-
 
 searchBox.addEventListener("keyup", (event) => {
   if (event.key === "Enter") {
@@ -88,11 +105,9 @@ searchBox.addEventListener("keyup", (event) => {
   }
 });
 
-
 searchBox.addEventListener("input", (event) => {
   searchBox.value = searchBox.value.replace(/[^a-zA-Z]/g, "");
 });
-
 
 getLocation();
 
