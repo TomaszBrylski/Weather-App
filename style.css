@@ -20,30 +20,38 @@ body {
 .search {
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  position: relative;
 }
+
 .search input {
   border: 0;
   outline: 0;
   background: #ebfffc;
   color: #555;
-  padding: 10px 25px;
+  padding: 10px 60px 10px 25px;
   height: 60px;
   border-radius: 30px;
   flex: 1;
-  margin-right: 16px;
   font-size: 20px;
-  text-align: center;
+  text-align: left;
 }
+
 .search button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   border: 0;
   outline: 0;
   background: #ebfffc;
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .search button img {
   width: 20px;
@@ -91,4 +99,34 @@ body {
   font-size: 18px;
   margin-top: 10px;
   display: none;
+}
+
+@media (max-width: 992px) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .search {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 700px) {
+  .search input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 700px) {
+  .search button img {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
 }
